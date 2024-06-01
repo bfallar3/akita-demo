@@ -50,11 +50,11 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/add-todo');
   }
 
-  markAsComplete(id: string) {
+  markAsComplete(id: number) {
     this.apiService.updateTodo(id, { status: TodoStatus.DONE }).subscribe(res => {
       this.todoStore.update(state => {
         const todos = [...state.todos];
-        const index = todos.findIndex(t => t._id === id);
+        const index = todos.findIndex(t => t.id === id);
         todos[index] = {
           ...todos[index],
           status: TodoStatus.DONE
@@ -67,12 +67,12 @@ export class HomeComponent implements OnInit {
     }, err => console.log(err));
   }
 
-  deleteTodo(id: string) {
+  deleteTodo(id: number) {
     this.apiService.deleteTodo(id).subscribe(res => {
       this.todoStore.update(state => {
         return {
           ...state,
-          todos: state.todos.filter(t => t._id !== id)
+          todos: state.todos.filter(t => t.id !== id)
         };
       });
     }, error => console.log(error));

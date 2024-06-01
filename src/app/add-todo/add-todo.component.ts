@@ -4,6 +4,7 @@ import { ApiService } from '../api.service';
 import { TodoStore } from '../state/store';
 import { TodoQuery } from '../state/query';
 import { Router } from '@angular/router';
+import { Todo, TodoStatus } from '../todo.model';
 
 @Component({
   selector: 'app-add-todo',
@@ -27,9 +28,16 @@ export class AddTodoComponent implements OnInit {
 
   addTodo() {
     console.log(this.form.value);
+    let todo: Todo = {
+      id: 0,
+      _id: '',
+      title: this.form.controls.title.value,
+      description: this.form.controls.description.value,
+      status: TodoStatus.OPEN
+    };
+
     this.todoStore.setLoading(true);
-    this.apiService.addTodo(this.form.controls.title.value,
-      this.form.controls.description.value).subscribe(res => {
+    this.apiService.addTodo(todo).subscribe(res => {
       this.todoStore.update(state => {
         return {
           todos: [
