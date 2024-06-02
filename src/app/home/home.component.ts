@@ -51,17 +51,7 @@ export class HomeComponent implements OnInit {
   }
 
   markAsComplete(id: number) {
-    const current = this.todoStore.getValue().todos.filter(t => t.id === id);
-    const todo: Todo = current[0];
-    const changed: Todo = {
-      id: todo.id,
-      _id: todo._id,
-      title: todo.title,
-      description: todo.description,
-      status: TodoStatus.DONE
-    };
-
-    this.apiService.updateTodo(id, changed).subscribe(res => {
+    this.apiService.updateTodo(id, { status: TodoStatus.DONE }).subscribe(res => {
       this.todoStore.update(state => {
         const todos = [...state.todos];
         const index = todos.findIndex(t => t.id === id);

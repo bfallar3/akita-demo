@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://akita-backend-service-latest.onrender.com/api/todos'
+  baseUrl: 'http://localhost:8080/api/todos'  
 };
 
 /*
